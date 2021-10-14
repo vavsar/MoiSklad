@@ -2,19 +2,19 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 
-from .models import Ware, Sale
+from .models import Ware, Sale, Order
 
 
 class WareSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ware
         fields = '__all__'
-#
-#
-# class OrderSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Order
-#         fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'
 
 
 class SaleSerializer(serializers.ModelSerializer):
@@ -32,7 +32,10 @@ class SaleSerializer(serializers.ModelSerializer):
             raise ValidationError('quantity is not enough')
         ware.quantity -= sale_quantity
         ware.save()
-        instance.totalPrice = (ware.price * sale_quantity) - ((ware.price * sale_quantity) / 100 * discountPercent)
+        instance.totalPrice = (
+            ware.price * sale_quantity) - (
+                (ware.price * sale_quantity) / 100 * discountPercent
+        )
         instance.save()
         # instance.priceWithDisc = (
         #         instance.totalPrice * ((100 - instance.discountPercent) / 100) *
@@ -53,7 +56,12 @@ class SaleSerializer(serializers.ModelSerializer):
 class GetBrandSalesSerializer(serializers.ModelSerializer):
     total_sold = serializers.IntegerField(read_only=True)
     total_earned = serializers.FloatField(read_only=True)
+    total_ordered = serializers.IntegerField(read_only=True)
+    orders_earned = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Ware
-        fields = '__all__'
+        fields = (
+            'id', 'name', 'quantity', 'price', 'total_sold',
+            'total_earned', 'total_ordered', 'orders_earned'
+        )

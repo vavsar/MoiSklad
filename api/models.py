@@ -17,27 +17,27 @@ class Ware(models.Model):
         return self.name
 
 
-# class Order(models.Model):
-#     number = models.CharField(max_length=20)
-#     date = models.DateTimeField(auto_now_add=True)
-#     lastChangedate = models.DateTimeField()
-#     supplierArticle = models.ForeignKey(Ware, on_delete=models.PROTECT)
-#     techSize = models.CharField(max_length=20)
-#     barcode = models.CharField(max_length=20)
-#     quantity = models.PositiveSmallIntegerField()
-#     totalPrice = models.IntegerField()
-#     discountPercent = models.PositiveSmallIntegerField()
-#     warehouseName = models.CharField(max_length=20)
-#     oblast = models.CharField(max_length=20)
-#     incomeID = models.PositiveIntegerField()
-#     odid = models.PositiveIntegerField()
-#     nmId = models.PositiveIntegerField()
-#     subject = models.CharField(max_length=20)
-#     category = models.CharField(max_length=20)
-#     brand = models.CharField(max_length=20)
-#     is_cancel = models.BooleanField()
-#     cancel_dt = models.DateTimeField(auto_now_add=True)
-#     gNumber = models.PositiveIntegerField()
+class Order(models.Model):
+    # number = models.CharField(max_length=20)
+    # date = models.DateTimeField(auto_now_add=True)
+    # lastChangedate = models.DateTimeField()
+    supplierArticle = models.ForeignKey(Ware, on_delete=models.PROTECT, related_name='orders')
+    # techSize = models.CharField(max_length=20)
+    # barcode = models.CharField(max_length=20)
+    quantity = models.PositiveSmallIntegerField()
+    totalPrice = models.DecimalField(decimal_places=2, max_digits=10, blank=True, editable=False, null=True)
+    discountPercent = models.PositiveSmallIntegerField(blank=True, null=True)
+    # warehouseName = models.CharField(max_length=20)
+    # oblast = models.CharField(max_length=20)
+    # incomeID = models.PositiveIntegerField()
+    # odid = models.PositiveIntegerField()
+    # nmId = models.PositiveIntegerField()
+    # subject = models.CharField(max_length=20)
+    # category = models.CharField(max_length=20)
+    # brand = models.CharField(max_length=20)
+    # is_cancel = models.BooleanField()
+    # cancel_dt = models.DateTimeField(auto_now_add=True)
+    # gNumber = models.PositiveIntegerField()
 
 
 class Sale(models.Model):

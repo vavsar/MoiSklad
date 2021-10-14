@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Ware, Sale
+from .models import Ware, Sale, Order
 
 
 class WareAdmin(admin.ModelAdmin):
@@ -9,15 +9,16 @@ class WareAdmin(admin.ModelAdmin):
         'name',
         'quantity',
         'price'
-
     )
-#
-#
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = (
-#         'id',
-#         'supplierArticle',
-#     )
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'supplierArticle',
+        'quantity',
+        'totalPrice',
+    )
 
 
 class SaleAdmin(admin.ModelAdmin):
@@ -34,5 +35,5 @@ class SaleAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Ware, WareAdmin)
-# admin.site.register(Order, OrderAdmin)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(Sale, SaleAdmin)
