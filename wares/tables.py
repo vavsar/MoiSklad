@@ -5,16 +5,8 @@ from django.utils.html import format_html
 from .models import Sale
 
 
-class ImageColumn(tables.Column):
-    def render(self, value):
-        return format_html('<img src="">', value)
-
-    def __str__(self):
-        return 'Фото'
-
-
 class SalesTable(tables.Table):
-    photo = tables.Column(ImageColumn, empty_values=())
+    photo = tables.Column('Фото', empty_values=())
     color = tables.Column('Цвет', empty_values=())
     rating = tables.Column('Рейтинг', empty_values=())
     orders_quantity = tables.Column('Количество заказов', empty_values=())
@@ -35,6 +27,9 @@ class SalesTable(tables.Table):
             "totalPrice", "spp", "order_sum", "order_grafik", "quantity",
             "sale_sum", "sale_grafik"
                   )
+
+    def render_photo(self, value):
+        return format_html('<img src="">', value)
 
     def render_sale_sum(self, record):
         return record.quantity * record.totalPrice
