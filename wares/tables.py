@@ -13,10 +13,8 @@ class SalesTable(tables.Table):
     review_quantity = tables.Column('Количество отзывов', empty_values=())
     spp = tables.Column()
     order_sum = tables.Column('Сумма заказов', empty_values=())
-    order_grafik = tables.Column('График заказов', empty_values=())
     quantity = tables.Column()
     sale_sum = tables.Column('Сумма продаж', empty_values=())
-    sale_grafik = tables.Column('График продаж', empty_values=())
 
     class Meta:
         model = Sale
@@ -24,8 +22,7 @@ class SalesTable(tables.Table):
         fields = (
             "saleID", "photo", "nmId", "category", "subject", "barcode",
             "color", "techSize", "orders_quantity", "rating", "review_quantity",
-            "totalPrice", "spp", "order_sum", "order_grafik", "quantity",
-            "sale_sum", "sale_grafik"
+            "totalPrice", "spp", "order_sum", "quantity", "sale_sum",
                   )
 
     def render_photo(self, value):
@@ -57,10 +54,3 @@ class SalesTable(tables.Table):
 
     def order_order_sum(self, queryset, is_descending):
         return queryset, True
-
-    def order_order_grafik(self, queryset, is_descending):
-        return queryset, True
-
-    def order_sale_grafik(self, queryset, is_descending):
-        return queryset, True
-
